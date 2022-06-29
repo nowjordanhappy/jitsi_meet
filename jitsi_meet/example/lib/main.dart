@@ -248,8 +248,10 @@ class _MeetingState extends State<Meeting> {
       }
     }
     // Define meetings options here
-    var options = JitsiMeetingOptions()
-      ..room = roomText.text
+    var options = JitsiMeetingOptions(
+      room: roomText.text
+    )
+      //..room = roomText.text
       ..serverURL = serverUrl
       ..subject = subjectText.text
       ..userDisplayName = nameText.text
@@ -272,13 +274,13 @@ class _MeetingState extends State<Meeting> {
     await JitsiMeet.joinMeeting(
       options,
       listener: JitsiMeetingListener(
-          onConferenceWillJoin: ({message}) {
+          onConferenceWillJoin: (message) {
             debugPrint("${options.room} will join with message: $message");
           },
-          onConferenceJoined: ({message}) {
+          onConferenceJoined: (message) {
             debugPrint("${options.room} joined with message: $message");
           },
-          onConferenceTerminated: ({message}) {
+          onConferenceTerminated: (message) {
             debugPrint("${options.room} terminated with message: $message");
           },
           genericListeners: [
@@ -303,15 +305,15 @@ class _MeetingState extends State<Meeting> {
     }, "Currencies characters aren't allowed in room names."),
   };
 
-  void _onConferenceWillJoin({message}) {
+  _onConferenceWillJoin(Map<dynamic, dynamic> message) {
     debugPrint("_onConferenceWillJoin broadcasted with message: $message");
   }
 
-  void _onConferenceJoined({message}) {
+  _onConferenceJoined(Map<dynamic, dynamic> message) {
     debugPrint("_onConferenceJoined broadcasted with message: $message");
   }
 
-  void _onConferenceTerminated({message}) {
+  _onConferenceTerminated(Map<dynamic, dynamic> message) {
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
   }
 

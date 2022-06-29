@@ -50,8 +50,8 @@ class JitsiMeet {
   /// A JitsiMeetingListener can be attached to this meeting that will automatically
   /// be removed when the meeting has ended
   static Future<JitsiMeetingResponse> joinMeeting(JitsiMeetingOptions options,
-      {JitsiMeetingListener listener,
-      Map<RoomNameConstraintType, RoomNameConstraint>
+      {JitsiMeetingListener? listener,
+      Map<RoomNameConstraintType, RoomNameConstraint>?
           roomNameConstraints}) async {
     assert(options != null, "options are null");
     assert(options.room != null, "room is null");
@@ -74,7 +74,7 @@ class JitsiMeet {
 
     // Validate serverURL is absolute if it is not null or empty
     if (options.serverURL?.isNotEmpty ?? false) {
-      assert(Uri.parse(options.serverURL).isAbsolute,
+      assert(Uri.parse(options.serverURL!).isAbsolute,
           "URL must be of the format <scheme>://<host>[/path], like https://someHost.com");
     }
 
@@ -157,12 +157,12 @@ class JitsiMeet {
 /// optional param `extraJS` allows setup another external JS libraries
 /// or Javascript embebed code
 class JitsiMeetConferencing extends StatelessWidget {
-  final List<String> extraJS;
+  final List<String>? extraJS;
   JitsiMeetConferencing({this.extraJS});
 
   @override
   Widget build(BuildContext context) {
-    return JitsiMeetPlatform.instance.buildView(extraJS);
+    return JitsiMeetPlatform.instance.buildView(extraJS!);
   }
 }
 
